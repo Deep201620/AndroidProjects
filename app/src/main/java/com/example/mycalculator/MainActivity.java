@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     Button buttonAdd,buttonSubtract,buttonMul,buttonDiv,buttonClear,buttonEqual,buttonExit;
     String result,posi;
     String tmp,operator;
-    int counter=-1;
+
     TextView resultTextView,t1view;
 
     @Override
@@ -142,7 +142,6 @@ public class MainActivity extends AppCompatActivity {
         try{
             int number = Integer.valueOf(tmp);
             int number2 = Integer.valueOf(resultTextView.getText().toString().substring(tmp.length()+operator.length(),resultTextView.length()));
-            counter = -1;
             switch (operator) {
                 case "+":
                     res = number + number2;
@@ -177,16 +176,13 @@ public class MainActivity extends AppCompatActivity {
     private void onClearButtonClicked() {
         result = "";
         resultTextView.setText("");
-        counter=-1;
     }
 
     private void onNumberButtonClicked(String pos){
-        counter = counter+1;
         result = resultTextView.getText().toString();
         this.posi=pos;
         result = result+posi;
         resultTextView.setText(result);
-        System.out.println("From number function: "+counter);
     }
 
     private void initControl() {
