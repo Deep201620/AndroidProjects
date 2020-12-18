@@ -14,7 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textview_result"
-        android:textSize="60sp"
         android:textAlignment="viewEnd"/>
     <TableRow
         android:layout_width="match_parent"
@@ -130,6 +129,24 @@
         android:layout_height="match_parent"
         android:background="@color/colorPrimary">
 
+    <Button
+        android:id="@+id/buttonraiseto"
+        android:text="power"
+        android:layout_weight="1"
+        android:textSize="20sp"/>
+    <Button
+        android:id="@+id/buttondelete"
+        android:text="DEL"
+        android:layout_weight="1"
+        android:textSize="20sp"/>
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary">
+
         <Button
             android:id="@+id/buttonexit"
             android:text="Exit"
@@ -150,7 +167,8 @@
             android:id="@+id/textview"
             android:gravity="center"
             android:textStyle="bold"
-            android:text="Thankyou For Using"
+            android:text="Thanks For Using"
+            android:drawableRight="@mipmap/calc"
             android:textSize="30sp"
             android:textAlignment="center"/>
 

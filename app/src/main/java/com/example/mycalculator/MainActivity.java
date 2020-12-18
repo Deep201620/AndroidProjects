@@ -8,13 +8,15 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Stack;
+
 public class MainActivity extends AppCompatActivity {
 
     Button button0,button1,button2,button3,button4,button5,button6,button7,button8,button9;
-    Button buttonAdd,buttonSubtract,buttonMul,buttonDiv,buttonClear,buttonEqual,buttonExit;
-    String result,posi;
+    Button buttonAdd,buttonSubtract,buttonMul,buttonDiv,buttonClear,buttonEqual,buttonExit,buttonraise,buttondel;
+    String result,result2;
     String tmp,operator;
-
+    boolean flag = false;
     TextView resultTextView,t1view;
 
     @Override
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         initControl();
         initControlListener();
         t1view = findViewById(R.id.textview);
+        resultTextView.setTextSize(40);
     }
 
     private  void initControlListener(){
@@ -123,6 +126,18 @@ public class MainActivity extends AppCompatActivity {
                 onEqualButtonClicked();
             }
         });
+        buttonraise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onOperatorButtonClicked("^");
+            }
+        });
+        buttondel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onDeleteButtonClicked();
+            }
+        });
         buttonExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,10 +153,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onEqualButtonClicked(){
-        int res= 0;
+        long res= 0;
+        flag = true;
         try{
-            int number = Integer.valueOf(tmp);
-            int number2 = Integer.valueOf(resultTextView.getText().toString().substring(tmp.length()+operator.length(),resultTextView.length()));
+            long number = Long.valueOf(tmp);
+            long number2 = Long.valueOf(resultTextView.getText().toString().substring(tmp.length()+operator.length(),resultTextView.length()));
+
             switch (operator) {
                 case "+":
                     res = number + number2;
@@ -158,13 +175,18 @@ public class MainActivity extends AppCompatActivity {
                 case "*":
                     res = number * number2;
                     break;
+
+                case "^":
+                    res = (int)Math.pow(number,number2);
             }
             result = String.valueOf(res);
+
             resultTextView.setText(result);
         }catch (Exception e){
             e.printStackTrace();
         }
     }
+
 
     private void onOperatorButtonClicked(String operator){
         tmp = resultTextView.getText().toString();
@@ -180,9 +202,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void onNumberButtonClicked(String pos){
         result = resultTextView.getText().toString();
-        this.posi=pos;
-        result = result+posi;
+        result = result+pos;
         resultTextView.setText(result);
+    }
+
+    private void onDeleteButtonClicked(){
+        if(flag){
+           onClearButtonClicked();
+        }else {
+            resultTextView.setText(resultTextView.getText().toString().substring(0, resultTextView.getText().length() - 1));
+        }
     }
 
     private void initControl() {
@@ -203,6 +232,8 @@ public class MainActivity extends AppCompatActivity {
         buttonMul = findViewById(R.id.buttonMul);
         buttonDiv = findViewById(R.id.buttonDiv);
         buttonEqual = findViewById(R.id.buttonEqual);
+        buttonraise = findViewById(R.id.buttonraiseto);
+        buttondel = findViewById(R.id.buttondelete);
 
         resultTextView = findViewById(R.id.textview_result);
         buttonExit = findViewById(R.id.buttonexit);
